@@ -270,6 +270,41 @@ button.shot{cursor:zoom-in}
 .nov .card{background:rgba(255,255,255,.05);border-color:rgba(241,210,126,.3);box-shadow:none}
 .nov .card h3{color:#fff}
 .nov .card p{color:var(--muted-dark)}
+/* destaque em vídeo + trabalhos recentes */
+.dest{width:100%;max-width:880px;margin:36px auto 6px;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:36px;align-items:center;text-align:left}
+.dest-v{position:relative;aspect-ratio:9/16;max-width:100%;border-radius:22px;overflow:hidden;background:#031d22;box-shadow:0 22px 50px rgba(0,0,0,.45),0 0 0 2px rgba(241,210,126,.55)}
+.dest-v video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.dest-v .tag{position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;gap:7px;background:rgba(3,29,34,.72);backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:5px 12px 5px 10px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.dest-v .tag i{width:8px;height:8px;border-radius:50%;background:var(--gold-2);box-shadow:0 0 0 0 rgba(241,210,126,.7);animation:pulso 2s infinite}
+@keyframes pulso{70%{box-shadow:0 0 0 8px rgba(241,210,126,0)}100%{box-shadow:0 0 0 0 rgba(241,210,126,0)}}
+.dest-t small{display:block;color:var(--gold-2);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
+.dest-t h3{font-family:var(--f-display);font-size:clamp(1.6rem,3.4vw,2.2rem);color:#fff;line-height:1.15;text-wrap:balance}
+.dest-t p{color:#c9e3e6;margin:14px 0 22px;max-width:40ch;line-height:1.6}
+.dest-t .btn{width:auto}
+.rec{width:100%;margin-top:54px}
+.rec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px;text-align:left}
+.rec-h span{display:block;margin-top:4px}
+.rec-h h3{font-family:var(--f-display);font-size:1.45rem;color:#fff}
+.rec-h span{color:var(--muted-dark);font-size:.85rem}
+.rec-nav{display:flex;gap:8px}
+.rec-nav button{width:42px;height:42px;border-radius:50%;border:1px solid rgba(241,210,126,.5);background:rgba(255,255,255,.06);color:var(--gold-2);display:grid;place-items:center;cursor:pointer}
+.rec-nav button:hover{background:rgba(241,210,126,.15)}
+.rec-nav .ic{width:20px;height:20px}
+.rec-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:thin;scrollbar-color:rgba(241,210,126,.5) transparent}
+.rec-it{flex:0 0 auto;height:330px;aspect-ratio:3/4;position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(241,210,126,.3);padding:0;background:#031d22;cursor:zoom-in;scroll-snap-align:start;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.rec-it.lg{aspect-ratio:16/9}
+.rec-it img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.rec-it:hover img{transform:scale(1.04)}
+.rec-it b{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(3,29,34,.78);backdrop-filter:blur(6px);color:#fff;font-weight:500;font-size:.84rem;border-radius:10px;padding:7px 10px;text-align:left}
+@media (max-width:719px){
+  .dest{grid-template-columns:1fr;gap:24px;text-align:center;margin-top:28px}
+  .dest-v{width:min(76vw,300px);margin:0 auto}
+  .dest-t p{margin-left:auto;margin-right:auto}
+  .rec{margin-top:40px}
+  .rec-it{height:auto;width:58vw}
+  .rec-it.lg{width:80vw;aspect-ratio:4/3}
+  .rec-it.lg img{object-fit:contain;background:#101413}
+}
 .sign{margin-top:40px;font-family:var(--f-display);font-size:1.25rem;color:var(--gold-2);letter-spacing:.02em}
 
 /* área da empresa */
@@ -419,7 +454,29 @@ button.shot{cursor:zoom-in}
       <h2 class="h2">Projetar e Realizar</h2>
       <div class="rule"></div>
       <p class="lead">A Oásis agora também faz móveis de vidro, vitrines de vidro e bancadas de vidro.</p>
+      <div class="dest">
+        <div class="dest-v">
+          <video id="destVid" src="destaque-aquario.mp4" poster="destaque-aquario.jpg" muted autoplay loop playsinline preload="metadata" aria-label="Vídeo do aquário feito pela Oásis"></video>
+          <span class="tag"><i></i>Em destaque</span>
+        </div>
+        <div class="dest-t">
+          <small>Projeto realizado</small>
+          <h3>Aquário de vidro sob medida</h3>
+          <p>Vidro cortado e colado na medida certa do móvel, com acabamento limpo, para o seu aquário virar o destaque da sala.</p>
+          <a class="btn gold" id="destBtn" href="https://wa.me/5575988548387?text=Ol%C3%A1!%20Vi%20o%20aqu%C3%A1rio%20no%20site%20da%20O%C3%A1sis%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener">Quero um assim <svg class="ic s" aria-hidden="true"><use href="#i-seta"/></svg></a>
+        </div>
+      </div>
       <div class="svc" id="novGrid"></div>
+      <div class="rec">
+        <div class="rec-h"><div><h3>Trabalhos</h3><span>Toque na foto para ampliar</span></div><div class="rec-nav"><button type="button" data-rec="-1" aria-label="Fotos anteriores"><svg class="ic" aria-hidden="true"><use href="#i-volta"/></svg></button><button type="button" data-rec="1" aria-label="Próximas fotos"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg></button></div></div>
+        <div class="rec-row" id="recRow" role="list">
+          <button class="rec-it lg" type="button" role="listitem" data-photo="novo-espelho-led.jpg" aria-label="Ampliar: Espelho com LED"><img src="novo-espelho-led.jpg" alt="Espelho com moldura de LED instalado na parede" loading="lazy"><b>Espelho com LED</b></button>
+          <button class="rec-it" type="button" role="listitem" data-photo="novo-aquario.jpg" aria-label="Ampliar: Aquário sob medida"><img src="novo-aquario.jpg" alt="Aquário de vidro sobre móvel de madeira" loading="lazy"><b>Aquário sob medida</b></button>
+          <button class="rec-it" type="button" role="listitem" data-photo="novo-mesa-carretel.jpg" aria-label="Ampliar: Mesa de carretel com vidro"><img src="novo-mesa-carretel.jpg" alt="Mesa de carretel de madeira com tampo redondo de vidro" loading="lazy"><b>Mesa de carretel com vidro</b></button>
+          <button class="rec-it" type="button" role="listitem" data-photo="novo-tampo.jpg" aria-label="Ampliar: Tampo de vidro"><img src="novo-tampo.jpg" alt="Móvel de madeira com tampo de vidro sob medida" loading="lazy"><b>Tampo de vidro</b></button>
+          <button class="rec-it" type="button" role="listitem" data-photo="novo-prateleira.jpg" aria-label="Ampliar: Prateleira e basculante"><img src="novo-prateleira.jpg" alt="Prateleira de vidro e janela basculante no banheiro" loading="lazy"><b>Prateleira e basculante</b></button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -595,7 +652,7 @@ var SERVICES=[
   {id:'boxes',group:'s',name:'Boxes',icon:'box',desc:'Box de banheiro sob medida, com visual leve e fácil de limpar.',photos:['boxes-1.jpg','boxes-2.jpg','boxes-3.jpg','boxes-4.jpg','boxes-5.jpg','boxes-6.jpg','boxes-7.jpg','boxes-8.jpg']},
   {id:'portas',group:'s',name:'Portas',icon:'porta',desc:'Portas de vidro para casas, lojas e escritórios.',photos:['portas-1.jpg','portas-2.jpg','portas-3.jpg','portas-4.jpg','portas-5.jpg','portas-6.jpg','portas-7.jpg','portas-8.jpg','portas-9.jpg','portas-10.jpg','portas-11.jpg','portas-12.jpg']},
   {id:'espelhos',group:'s',name:'Espelhos',icon:'espelho',desc:'Espelhos sob medida para sala, quarto, banheiro e comércio.',photos:['espelhos-4.jpg','espelhos-1.jpg','espelhos-3.jpg','espelhos-5.jpg','espelhos-2.jpg']},
-  {id:'moveis',group:'n',name:'Móveis de vidro',icon:'movel',desc:'Móveis de vidro projetados e feitos sob medida, com leveza e elegância.',photos:['moveis-0.jpg','moveis-1.jpg']},
+  {id:'moveis',group:'n',name:'Móveis de vidro',icon:'movel',desc:'Móveis de vidro projetados e feitos sob medida, com leveza e elegância.',photos:['moveis-0.jpg','moveis-1.jpg','novo-aquario.jpg','novo-mesa-carretel.jpg','novo-tampo.jpg']},
   {id:'vitrines',group:'n',name:'Vitrines de vidro',icon:'vitrine',desc:'Vitrines de vidro para mostrar os seus produtos com destaque.',photos:['vitrines-1.jpg']},
   {id:'bancadas',group:'n',name:'Bancadas de vidro',icon:'bancada',desc:'Bancadas de vidro sob medida, com acabamento elegante.',photos:['bancadas-1.jpg']}
 ];
@@ -808,6 +865,11 @@ $('#copyNum').addEventListener('click',function(){
 });
 
 renderGrids();
+})();
+document.addEventListener('click',function(e){var b=e.target.closest('[data-rec]');if(!b)return;var r=document.getElementById('recRow');r.scrollBy({left:(+b.getAttribute('data-rec'))*r.clientWidth*.8,behavior:'smooth'})});
+(function(){var v=document.getElementById('destVid');if(!v)return;v.muted=true;
+  function tocar(){var pr=v.play();if(pr&&pr.catch)pr.catch(function(){})}
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)tocar();else v.pause()})},{threshold:.25}).observe(v)}else tocar();
 })();
 if('serviceWorker' in navigator&&location.protocol!=='file:'){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
 </script>
