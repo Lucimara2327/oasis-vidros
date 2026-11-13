@@ -286,6 +286,7 @@ button.shot{cursor:zoom-in}
 .rec-h span{display:block;margin-top:4px}
 .rec-h h3{font-family:var(--f-display);font-size:1.45rem;color:#fff}
 .rec-h span{color:var(--muted-dark);font-size:.85rem}
+.nov-dots{display:none}
 .rec-nav{display:flex;gap:8px}
 .rec-nav button{width:42px;height:42px;border-radius:50%;border:1px solid rgba(241,210,126,.5);background:rgba(255,255,255,.06);color:var(--gold-2);display:grid;place-items:center;cursor:pointer}
 .rec-nav button:hover{background:rgba(241,210,126,.15)}
@@ -334,8 +335,14 @@ button.shot{cursor:zoom-in}
   .card h3{font-size:1.15rem}
   .card p{font-size:.85rem;line-height:1.4}
   .card .btn{padding:0 10px;font-size:.85rem;min-height:44px;gap:6px}
-  .nov .svc{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
-  .nov .svc .card{width:calc(50% - 6px)}
+  .nov .svc{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:none}
+  .nov .svc::-webkit-scrollbar{display:none}
+  .nov .svc .card{flex:0 0 72%;width:72%;scroll-snap-align:center}
+  .nov .card h3{font-size:1.3rem}
+  .nov .card p{font-size:.92rem}
+  .nov-dots{display:flex;justify-content:center;gap:8px;margin-top:6px}
+  .nov-dots i{width:8px;height:8px;border-radius:999px;background:rgba(241,210,126,.35);transition:width .3s,background .3s}
+  .nov-dots i.on{width:22px;background:var(--gold-2)}
   .ths{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
   .th .tb button{min-height:30px;font-size:.72rem}
   .th .capa{font-size:.66rem;padding:1px 8px}
@@ -467,6 +474,7 @@ button.shot{cursor:zoom-in}
         </div>
       </div>
       <div class="svc" id="novGrid"></div>
+      <div class="nov-dots" id="novDots" aria-hidden="true"></div>
       <div class="rec">
         <div class="rec-h"><div><h3>Trabalhos</h3><span>Toque na foto para ampliar</span></div><div class="rec-nav"><button type="button" data-rec="-1" aria-label="Fotos anteriores"><svg class="ic" aria-hidden="true"><use href="#i-volta"/></svg></button><button type="button" data-rec="1" aria-label="Próximas fotos"><svg class="ic" aria-hidden="true"><use href="#i-seta"/></svg></button></div></div>
         <div class="rec-row" id="recRow" role="list">
@@ -474,7 +482,7 @@ button.shot{cursor:zoom-in}
           <button class="rec-it" type="button" role="listitem" data-photo="novo-aquario.jpg" aria-label="Ampliar: Aquário sob medida"><img src="novo-aquario.jpg" alt="Aquário de vidro sobre móvel de madeira" loading="lazy"><b>Aquário sob medida</b></button>
           <button class="rec-it" type="button" role="listitem" data-photo="novo-mesa-carretel.jpg" aria-label="Ampliar: Mesa de carretel com vidro"><img src="novo-mesa-carretel.jpg" alt="Mesa de carretel de madeira com tampo redondo de vidro" loading="lazy"><b>Mesa de carretel com vidro</b></button>
           <button class="rec-it" type="button" role="listitem" data-photo="novo-tampo.jpg" aria-label="Ampliar: Tampo de vidro"><img src="novo-tampo.jpg" alt="Móvel de madeira com tampo de vidro sob medida" loading="lazy"><b>Tampo de vidro</b></button>
-          <button class="rec-it" type="button" role="listitem" data-photo="novo-prateleira.jpg" aria-label="Ampliar: Prateleira e basculante"><img src="novo-prateleira.jpg" alt="Prateleira de vidro e janela basculante no banheiro" loading="lazy"><b>Prateleira e basculante</b></button>
+          <button class="rec-it" type="button" role="listitem" data-photo="novo-prateleira.jpg" aria-label="Ampliar: Porta-toalha de vidro e basculante"><img src="novo-prateleira.jpg" alt="Porta-toalha de vidro e janela basculante no banheiro" loading="lazy"><b>Porta-toalha e basculante</b></button>
         </div>
       </div>
     </div>
@@ -865,6 +873,12 @@ $('#copyNum').addEventListener('click',function(){
 });
 
 renderGrids();
+})();
+(function(){var g=document.getElementById('novGrid'),d=document.getElementById('novDots');if(!g||!d)return;
+  var n=g.children.length;d.innerHTML=new Array(n+1).join('<i></i>');
+  function upd(){var cs=g.children,c=g.scrollLeft+g.clientWidth/2,best=0,bd=1e9;for(var i=0;i<cs.length;i++){var m=cs[i].offsetLeft-g.offsetLeft+cs[i].offsetWidth/2,dd=Math.abs(m-c);if(dd<bd){bd=dd;best=i}}
+    for(var j=0;j<d.children.length;j++)d.children[j].className=j===best?'on':''}
+  g.addEventListener('scroll',upd,{passive:true});upd();
 })();
 document.addEventListener('click',function(e){var b=e.target.closest('[data-rec]');if(!b)return;var r=document.getElementById('recRow');r.scrollBy({left:(+b.getAttribute('data-rec'))*r.clientWidth*.8,behavior:'smooth'})});
 (function(){var v=document.getElementById('destVid');if(!v)return;v.muted=true;
